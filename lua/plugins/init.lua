@@ -85,19 +85,26 @@ local default_plugins = {
         require("nvim-treesitter.configs").setup(opts)
       end,
     },
-  
+ 
+    { 'github/copilot.vim',
+    -- Should start copilot on startup
+        lazy = false,
+  },
     -- git stuff
     {
       "lewis6991/gitsigns.nvim",
+      lazy = false,
+    --   cmd = { "Gitsigns", "Gitsigns toggle_signs", "Gitsigns toggle_numhl", "Gitsigns toggle_linehl", "Gitsigns toggle_word_diff" },
+
       ft = { "gitcommit", "diff" },
       init = function()
         -- load gitsigns only when a git file is opened
-        vim.api.nvim_create_autocmd({ "bufread" }, {
-          group = vim.api.nvim_create_augroup("gitsignslazyload", { clear = true }),
-          callback = function()
-            vim.fn.system("git -c " .. '"' .. vim.fn.expand "%:p:h" .. '"' .. " rev-parse")
-            if vim.v.shell_error == 0 then
-              vim.api.nvim_del_augroup_by_name "gitsignslazyload"
+        vim.api.nvim_create_autocmd({ "BufRead" }, {
+            group = vim.api.nvim_create_augroup("GitsignsLazyLoad", { clear = true }),
+            callback = function()
+                vim.fn.system("git -c " .. '"' .. vim.fn.expand "%:p:h" .. '"' .. " rev-parse")
+                if vim.v.shell_error == 0 then
+              vim.api.nvim_del_augroup_by_name "GitsignsLazyLoad"
               vim.schedule(function()
                 require("lazy").load { plugins = { "gitsigns.nvim" } }
               end)
@@ -105,37 +112,14 @@ local default_plugins = {
           end,
         })
       end,
-      opts = function()
-        return require("plugins.configs.others").gitsigns
-      end,
-      config = function(_, opts)
+      config = function()
+        local options = require ('plugins.configs.nvim_gitsigns')
         dofile(vim.g.base46_cache .. "git")
-        require("gitsigns").setup(opts)
-      end,
-    },
+        require("gitsigns").setup(options.setup)
+        end,
+      },
   
     -- lsp stuff
-   -- {
-   --    "williamboman/mason.nvim",
-   --    dependencies = {
-   --      "williamboman/mason-lspconfig.nvim",
-   --    },
-   --    config = function()
-   --      local mason_lspconfig = require('mason-lspconfig')
-   --
-   --      mason_lspconfig.setup({
-   --        ensure_installed =  {
-   --          -- "tsserver",
-   --          -- "html",
-   --          -- "cssls",
-   --          -- "tailwindacss",
-   --          -- "lua_ls"
-   --        },
-   --      automatic_installation = true
-   --    })
-   --    end
-   --  },
-  
     {
       "williamboman/mason.nvim",
       dependencies = {
@@ -195,7 +179,6 @@ local default_plugins = {
           },
           config = function(_, opts)
             require("nvim-autopairs").setup(opts)
-  
             -- setup cmp for autopairs
             local cmp_autopairs = require "nvim-autopairs.completion.cmp"
             require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
@@ -231,9 +214,7 @@ local default_plugins = {
     },
     init = function()
       require("core.utils").load_mappings "comment"
-    end,
-    config = function(_, opts)
-      require("comment").setup(opts)
+      require("plugins.configs.comment").config()
     end,
   },
 
@@ -332,8 +313,8 @@ local default_plugins = {
       })
     end,{ desc = "format file or range"})
   end,
+  },
   }
-}
 
 local config = require("core.utils").load_config()
 

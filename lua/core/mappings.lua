@@ -32,6 +32,9 @@ M.general = {
 
   n = {
     -- ["<S-Space>"] = { "<Nop>", "Leader key in insert mode" },
+    ["<leader>fdi"] = {"<ESC>:set foldmethod=indent<CR>", "Set fold method to INDENT"},
+    ["<leader>fdm"] = {"<ESC>:set foldmethod=manual<CR>", "Set fold method to MANUAL"},
+    ["<leader>fdt"] = {"<ESC>:set foldenable!<CR>", "Toggle foldenable on or off"},
     ["<leader>tv"]= {"ToggleTerm direction=vertical<CR>", "Open terminal in vertical direction"},
     ["<leader>th"]= {"ToggleTerm direction=horizontal<CR>", "Open terminal in horizontal direction"},  
     ["<Esc>"] = { "<cmd> noh <CR>", "Clear highlights" },
@@ -52,7 +55,7 @@ M.general = {
 
     -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
     -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
-    -- empty mode is same as using <cmd> :map
+   -- empty mode is same as using <cmd> :map
     -- also don't use g[j|k] when in operator pending mode, so it doesn't alter d, y or c behaviour
     ["j"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
     ["k"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
@@ -429,7 +432,7 @@ M.gitsigns = {
   plugin = true,
 
   n = {
-    -- Navigation through hunks
+   -- Navigation through hunks
     ["]c"] = {
       function()
         if vim.wo.diff then
@@ -475,7 +478,7 @@ M.gitsigns = {
 
     ["<leader>gb"] = {
       function()
-        package.loaded.gitsigns.blame_line()
+        require('gitsigns').blame_line()
       end,
       "Blame line",
     },
