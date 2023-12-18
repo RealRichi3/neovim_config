@@ -3,7 +3,6 @@
 local default_plugins = {
 
     "nvim-lua/plenary.nvim",
-  
     {
       "nvchad/base46",
       branch = "v2.0",
@@ -11,7 +10,6 @@ local default_plugins = {
         require("base46").load_all_highlights()
       end,
     },
-  
     {
       "nvchad/ui",
       branch = "v2.0",
@@ -27,7 +25,6 @@ local default_plugins = {
         require("nvterm").setup(opts)
       end,
     },
-  
     {
       "nvchad/nvim-colorizer.lua",
       init = function()
@@ -35,14 +32,12 @@ local default_plugins = {
       end,
       config = function(_, opts)
         require("colorizer").setup(opts)
-  
         -- execute colorizer as soon as possible
         vim.defer_fn(function()
           require("colorizer").attach_to_buffer(0)
         end, 0)
       end,
     },
-  
     {
       "nvim-tree/nvim-web-devicons",
       opts = function()
@@ -53,7 +48,6 @@ local default_plugins = {
         require("nvim-web-devicons").setup(opts)
       end,
     },
-  
     {
       "lukas-reineke/indent-blankline.nvim",
       version = "2.20.7",
@@ -69,7 +63,6 @@ local default_plugins = {
         require("indent_blankline").setup(opts)
       end,
     },
-  
     {
       "nvim-treesitter/nvim-treesitter",
       init = function()
@@ -85,7 +78,6 @@ local default_plugins = {
         require("nvim-treesitter.configs").setup(opts)
       end,
     },
- 
     { 'github/copilot.vim',
     -- Should start copilot on startup
     event = 'InsertEnter',
@@ -119,7 +111,6 @@ local default_plugins = {
         require("gitsigns").setup(options.setup)
         end,
       },
-  
     -- lsp stuff
     {
       "williamboman/mason.nvim",
@@ -136,16 +127,13 @@ local default_plugins = {
 
         dofile(vim.g.base46_cache .. "mason")
         require("mason").setup(opts)
-  
         -- custom nvchad cmd to install all mason binaries listed
         vim.api.nvim_create_user_command("MasonInstallAll", function()
           vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
         end, {})
-  
         vim.g.mason_binaries_list = opts.ensure_installed
       end,
     },
-  
     {
       "neovim/nvim-lspconfig",
       init = function()
@@ -155,7 +143,6 @@ local default_plugins = {
         require "plugins.configs.lspconfig"
       end,
     },
-  
     -- load luasnips + cmp related in insert mode only
     {
       "hrsh7th/nvim-cmp",
@@ -170,7 +157,6 @@ local default_plugins = {
             require("plugins.configs.others").luasnip(opts)
           end,
         },
-  
         -- autopairing of (){}[] etc
         {
           "windwp/nvim-autopairs",
@@ -185,7 +171,6 @@ local default_plugins = {
             require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
           end,
         },
-  
         -- cmp sources plugins
         {
           "saadparwaiz1/cmp_luasnip",
@@ -234,7 +219,6 @@ local default_plugins = {
       require("nvim-tree").setup(opts)
     end,
   },
-
   {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter", { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
@@ -259,11 +243,11 @@ local default_plugins = {
   {
     "akinsho/toggleterm.nvim",
     cmd = "ToggleTerm",
+    lazy = false,
     config = function()
       require("plugins.configs.toggleterm")
     end,
   },
-
   -- only load whichkey after all the GUI
   {
     "folke/which-key.nvim",
@@ -277,8 +261,6 @@ local default_plugins = {
       require("which-key").setup(opts)
     end,
   },
-
-
   {
     "stevearc/conform.nvim",
     event = {
@@ -305,7 +287,6 @@ local default_plugins = {
           timeout_ms = 500
         }
       })
-
     vim.keymap.set({ "n", "v"}, "<leader>mp", function()
       conform.format({
         lsp_fallback = true,
