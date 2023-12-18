@@ -48,6 +48,12 @@ opt.updatetime = 250
 ---- Fold Indenting
 --vim.o.foldmethod = 'indent' 
 
+
+-- Setup mapping for up and down
+vim.api.nvim_set_keymap('n', 'j', 'gj', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'k', 'gk', { noremap = true, silent = true })
+
+
 -- Set default folding method to 'indent' for text files
 vim.api.nvim_exec([[
   autocmd FileType text,markdown,plaintext setlocal foldmethod=indent

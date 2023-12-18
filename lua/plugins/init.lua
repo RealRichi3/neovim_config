@@ -88,7 +88,8 @@ local default_plugins = {
  
     { 'github/copilot.vim',
     -- Should start copilot on startup
-        lazy = false,
+    event = 'InsertEnter',
+    config = function () vim.cmd "source ~/.config/nvim/init.lua" end,
   },
     -- git stuff
     {
@@ -158,7 +159,7 @@ local default_plugins = {
     -- load luasnips + cmp related in insert mode only
     {
       "hrsh7th/nvim-cmp",
-     event = "insertenter",
+     event = "InsertEnter",
       dependencies = {
         {
           -- snippet plugin
