@@ -48,6 +48,19 @@ opt.updatetime = 250
 ---- Fold Indenting
 --vim.o.foldmethod = 'indent' 
 
+--- Select text then find with grep
+
+function Telescope_grep_selected_text()
+    local selected_text = vim.fn.getreg(0, 1, 1)
+    require('telescope.builtin').grep_string({
+        search = selected_text,
+        hidden = true,
+        layout_config = { prompt_position = 'top' },
+    })
+end
+
+vim.api.nvim_set_keymap('x', '<Leader>g', [[:lua Telescope_grep_selected_text()<CR>]], { noremap = true, silent = true })
+
 
 -- Setup mapping for up and down
 vim.api.nvim_set_keymap('n', 'j', 'gj', { noremap = true, silent = true })

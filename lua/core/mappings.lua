@@ -1,6 +1,13 @@
--- n, v, i, t = mode names
-
 local M = {}
+function TelescopeGrepSelectedText()
+    local selected_text = vim.fn.getreg(0, 1, 1)
+    require('telescope.builtin').grep_string({
+        search = selected_text,
+        hidden = true,
+        layout_config = { prompt_position = 'top' },
+    })
+end
+
 -- Disable the default behavior of Space
 --vim.api.nvim_set_keymap('n', '<Space>', '<Space>', { noremap = true, silent = true })
 --
@@ -21,10 +28,10 @@ M.general = {
     
     -- navigate within insert mode
     -- ["<S-Space>"] = { "<Nop>", "Leader key in insert mode" },
-    ["<A-Left>"] = { "<Left>", "Move left" },
-    ["<A-Right>"] = { "<Right>", "Move right" },
-    ["<A-Down>"] = { "<Down>", "Move down" },
-    ["<A-Up>"] = { "<Up>", "Move up" },
+    ["<M-Left>"] = { "<Left>", "Move left" },
+    ["<M-Right>"] = { "<Right>", "Move right" },
+    ["<M-Down>"] = { "<Down>", "Move down" },
+    ["<M-Up>"] = { "<Up>", "Move up" },
     ["<C-s>"] = { "<cmd> w <CR>", "Save file" },
     ["<leader>tv"]= {"<ESC>:ToggleTerm direction=vertical<CR>", "Open terminal in vertical direction"},
     ["<leader>th"]= {"<ESC>:ToggleTerm direction=horizontal<CR>", "Open terminal in horizontal direction"},  
@@ -57,8 +64,6 @@ M.general = {
     -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
    -- empty mode is same as using <cmd> :map
     -- also don't use g[j|k] when in operator pending mode, so it doesn't alter d, y or c behaviour
-    ["j"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
-    ["k"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
     -- ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
     -- ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
 
@@ -98,6 +103,7 @@ M.general = {
     -- Don't copy the replaced text after pasting in visual mode
     -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
     ["p"] = { 'p:let @+=@0<CR>:let @"=@0<CR>', "Dont copy replaced text", opts = { silent = true } },
+    ["<Leader>g"] = { [[:lua TelescopeGrepSelectedText()<CR>]], "Find selected text", opts = { noremap = true, silent = true }}
   },
 }
 
@@ -297,7 +303,7 @@ M.telescope = {
 
   n = {
     -- find
-    ["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "Find files" },
+    ["<C-p>"] = { "<cmd> Telescope find_files <CR>", "Find files" },
     ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
     ["<leader>fw"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
     ["<leader>fb"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },

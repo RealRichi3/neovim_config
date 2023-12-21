@@ -241,6 +241,13 @@ local default_plugins = {
     end,
   },
   {
+    "nvim-telescope/telescope-ui-select.nvim",
+    lazy = false,
+    config = function()
+      require('plugins.configs.telescope_ui_select')
+    end
+  },
+  {
     "akinsho/toggleterm.nvim",
     cmd = "ToggleTerm",
     lazy = false,
