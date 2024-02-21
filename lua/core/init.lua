@@ -17,10 +17,10 @@ opt.cursorline = true
 
 -- Indenting
 opt.expandtab = true
-opt.shiftwidth = 2
+opt.shiftwidth = 4
 opt.smartindent = true
-opt.tabstop = 2
-opt.softtabstop = 2
+opt.tabstop = 4
+opt.softtabstop = 4
 
 opt.fillchars = { eob = " " }
 opt.ignorecase = true
@@ -48,6 +48,16 @@ opt.updatetime = 250
 ---- Fold Indenting
 --vim.o.foldmethod = 'indent' 
 
+
+--- Set cursor style
+opt.guicursor = "a:Block"
+vim.cmd([[
+  augroup neovim_cursor_settings
+    autocmd!
+    autocmd InsertEnter * set guicursor=a:blinkon0
+    autocmd InsertLeave * set guicursor=a:blinkwait700-blinkon400-blinkoff250
+  augroup END
+]])
 --- Select text then find with grep
 
 function Telescope_grep_selected_text()
