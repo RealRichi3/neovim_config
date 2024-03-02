@@ -28,10 +28,14 @@ M.general = {
     
     -- navigate within insert mode
     -- ["<S-Space>"] = { "<Nop>", "Leader key in insert mode" },
-    ["<M-Left>"] = { "<Left>", "Move left" },
-    ["<M-Right>"] = { "<Right>", "Move right" },
-    ["<M-Down>"] = { "<Down>", "Move down" },
-    ["<M-Up>"] = { "<Up>", "Move up" },
+    ["<A-Left>"] = { "<Left>", "Move left" },
+    ["<A-Right>"] = { "<Right>", "Move right" },
+    ["<A-Down>"] = { "<Down>", "Move down" },
+    ["<A-Up>"] = { "<Up>", "Move up" },
+    ["<A-h>"] = { "<Left>", "Move left" },
+    ["<A-k>"] = { "<Down>", "Move down" },
+    ["<A-j>"] = { "<Up>", "Move up" },
+    ["<A-l>"] = { "<Right>", "Move right" },
     ["<C-s>"] = { "<cmd> w <CR>", "Save file" },
     ["<leader>tv"]= {"<ESC>:ToggleTerm direction=vertical<CR>", "Open terminal in vertical direction"},
     ["<leader>th"]= {"<ESC>:ToggleTerm direction=horizontal<CR>", "Open terminal in horizontal direction"},  
@@ -50,6 +54,11 @@ M.general = {
     ["<A-Right>"] = { "<C-w>l", "Window right" },
     ["<A-Down>"] = { "<C-w>j", " down" },
     ["<A-Up>"] = { "<C-w>k", "Window up" },
+    
+    ["<A-h>"] = { ":wincmd h<CR>", "Move Left" },
+    ["<A-l>"] = { ":wincmd l<CR>", "Move right" },
+    ["<A-j>"] = { ":wincmd j<CR>", "Move down" },
+    ["<A-k>"] = { ":wincmd k<CR>", "Move up" },
 
     ["<C-s>"] = { "<cmd> w <CR>", "Save file" },
 
@@ -337,14 +346,14 @@ M.nvterm = {
       "Toggle floating term",
     },
 
-    ["<A-h>"] = {
+    ["<A-t>h"] = {
       function()
         require("nvterm.terminal").toggle "horizontal"
       end,
       "Toggle horizontal term",
     },
 
-    ["<A-v>"] = {
+    ["<A-t>v"] = {
       function()
         require("nvterm.terminal").toggle "vertical"
       end,
@@ -361,14 +370,14 @@ M.nvterm = {
       "Toggle floating term",
     },
 
-    ["<A-h>"] = {
+    ["<A-t>h"] = {
       function()
         require("nvterm.terminal").toggle "horizontal"
       end,
       "Toggle horizontal term",
     },
 
-    ["<A-v>"] = {
+    ["<A-t>v"] = {
       function()
         require("nvterm.terminal").toggle "vertical"
       end,
