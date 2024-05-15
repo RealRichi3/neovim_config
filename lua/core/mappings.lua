@@ -80,7 +80,8 @@ M.general = {
     ["<leader>fdt"] = {"<ESC>:set foldenable!<CR>", "Toggle foldenable on or off"},
     ["<leader>tv"]= {"ToggleTerm direction=vertical<CR>", "Open terminal in vertical direction"},
     ["<leader>th"]= {"ToggleTerm direction=horizontal<CR>", "Open terminal in horizontal direction"}, 
-    -- ["<leader>g"] = {":Telescope current_buffer_fuzzy_find<CR>", "Find word in current buffer"},
+    ["<leader>g"] = {":Telescope current_buffer_fuzzy_find<CR>", "Find word in current buffer"},
+    ["<leader>G"] = {":Telescope live_grep<CR>", "Find word in current buffer"},
     ["<Esc>"] = { "<cmd> noh <CR>", "Clear highlights" },
     
      -- switch between windows
@@ -141,15 +142,26 @@ M.general = {
     -- Don't copy the replaced text after pasting in visual mode
     -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
     ["p"] = { 'p:let @+=@0<CR>:let @"=@0<CR>', "Dont copy replaced text", opts = { silent = true } },
-    -- ["<leader>g"] = { [[:lua TelescopeGrepSelectedText()<CR>]], "Find selected text", opts = { noremap = true, silent = true }}
+    ["<leader>G"] = {
+        function()
+            local tb = require('telescope.builtin')
+            tb.live_grep({ default_text = vim.getVisualSelection() })
+        end,
+        "Find selected text",
+        opts = { noremap = true, silent = true }
+
+        },
     ["<leader>g"] = {
         function()
             local tb = require('telescope.builtin')
             tb.current_buffer_fuzzy_find({ default_text = vim.getVisualSelection() })
-        end, 
+        end,
         "Find selected text",
-        opts = { noremap = true, silent = true }}
-  },
+        opts = { noremap = true, silent = true }
+
+        }
+    
+    },
 }
 
 M.tabufline = {
