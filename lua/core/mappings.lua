@@ -1,11 +1,21 @@
 local M = {}
+
+-- Grep selectd text
 function TelescopeGrepSelectedText()
-    local selected_text = vim.fn.getreg(0, 1, 1)
-    require('telescope.builtin').grep_string({
-        search = selected_text,
-        hidden = true,
-        layout_config = { prompt_position = 'top' },
-    })
+    vim.cmd('noau normal! "vy"')
+	local text = vim.fn.getreg('v')
+    print(text)
+	vim.fn.setreg('v', {})
+
+	text = string.gsub(text, "\n", "")
+    print(text)
+	if #text > 0 then
+        text = text
+    else
+		text = ''
+	end
+
+    require('telescope.builtin').current_buffer_fuzzy_find({ default_text = text})
 end
 
 -- Disable the default behavior of Space
@@ -25,7 +35,6 @@ M.general = {
     -- go to  beginning and end
     ["<C-b>"] = { "<ESC>^i", "Beginning of line" },
     ["<C-e>"] = { "<End>", "End of line" },
-    
     -- navigate within insert mode
     -- ["<S-Space>"] = { "<Nop>", "Leader key in insert mode" },
     ["<A-Left>"] = { "<Left>", "Move left" },
@@ -33,8 +42,8 @@ M.general = {
     ["<A-Down>"] = { "<Down>", "Move down" },
     ["<A-Up>"] = { "<Up>", "Move up" },
     ["<A-h>"] = { "<Left>", "Move left" },
-    ["<A-k>"] = { "<Down>", "Move down" },
-    ["<A-j>"] = { "<Up>", "Move up" },
+    ["<A-j>"] = { "<Down>", "Move down" },
+    ["<A-k>"] = { "<Up>", "Move up" },
     ["<A-l>"] = { "<Right>", "Move right" },
     ["<C-s>"] = { "<cmd> w <CR>", "Save file" },
     ["<leader>tv"]= {"<ESC>:ToggleTerm direction=vertical<CR>", "Open terminal in vertical direction"},
@@ -47,14 +56,11 @@ M.general = {
     ["<leader>fdm"] = {"<ESC>:set foldmethod=manual<CR>", "Set fold method to MANUAL"},
     ["<leader>fdt"] = {"<ESC>:set foldenable!<CR>", "Toggle foldenable on or off"},
     ["<leader>tv"]= {"ToggleTerm direction=vertical<CR>", "Open terminal in vertical direction"},
-    ["<leader>th"]= {"ToggleTerm direction=horizontal<CR>", "Open terminal in horizontal direction"},  
+    ["<leader>th"]= {"ToggleTerm direction=horizontal<CR>", "Open terminal in horizontal direction"}, 
+    ["<leader>g"] = {":Telescope current_buffer_fuzzy_find<CR>", "Find word in current buffer"},
     ["<Esc>"] = { "<cmd> noh <CR>", "Clear highlights" },
-    -- switch between windows
-    ["<A-Left>"] = { "<C-w>h", "Window left" },
-    ["<A-Right>"] = { "<C-w>l", "Window right" },
-    ["<A-Down>"] = { "<C-w>j", " down" },
-    ["<A-Up>"] = { "<C-w>k", "Window up" },
     
+     -- switch between windows
     ["<A-h>"] = { ":wincmd h<CR>", "Move Left" },
     ["<A-l>"] = { ":wincmd l<CR>", "Move right" },
     ["<A-j>"] = { ":wincmd j<CR>", "Move down" },
@@ -63,11 +69,11 @@ M.general = {
     ["<C-s>"] = { "<cmd> w <CR>", "Save file" },
 
     -- Copy all
-    ["<C-c>"] = { "<cmd> %y+ <CR>", "Copy whole file" },
+    -- ["<C-c>"] = { "<cmd> %y+ <CR>", "Copy whole file" },
 
     -- line numbers
     ["<leader>n"] = { "<cmd> set nu! <CR>", "Toggle line number" },
-    ["<leader>rn"] = { "<cmd> set rnu! <CR>", "Toggle relative number" },
+    ["<leader>rn"] = { "<cmd> set rnu! <CR>", "Toggle relative number" }    ,
 
     -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
     -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
@@ -93,12 +99,12 @@ M.general = {
 
   t = {
     -- ["<S-Space>"] = { "<Nop>", "Leader key in insert mode" },
-    ["<C-x>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "Escape terminal mode" },
+    -- ["<C-x>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "Escape terminal mode" },
   },
 
   v = {
-    -- ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
-    -- ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
+    -- ["k"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
+    -- ["j"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
     ["C-{"] = { "<gv", "Indent line" },
     ["C-}"] = { ">gv", "Indent line" },
     ["C-S-C"] = { "y<CR>", "Copy line"},
@@ -107,12 +113,12 @@ M.general = {
    
 
   x = {
-    ["j"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
-    ["k"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
+    -- ["j"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
+    -- ["k"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
     -- Don't copy the replaced text after pasting in visual mode
     -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
     ["p"] = { 'p:let @+=@0<CR>:let @"=@0<CR>', "Dont copy replaced text", opts = { silent = true } },
-    ["<Leader>g"] = { [[:lua TelescopeGrepSelectedText()<CR>]], "Find selected text", opts = { noremap = true, silent = true }}
+    ["<leader>g"] = { [[:lua TelescopeGrepSelectedText()<CR>]], "Find selected text", opts = { noremap = true, silent = true }}
   },
 }
 
