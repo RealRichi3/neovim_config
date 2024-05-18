@@ -99,6 +99,12 @@ M.general = {
     ["<leader>n"] = { "<cmd> set nu! <CR>", "Toggle line number" },
     ["<leader>rn"] = { "<cmd> set rnu! <CR>", "Toggle relative number" }    ,
 
+    -- Window management
+    ["<leader>sv"] = { "<C-w>v", "Split window vertically"},
+    ["<leader>sh"] = { "<C-w>s", "Split window horizontally"},
+    ["<leader>se"] = { "<C-w>=", "Make splits equal size"},
+    ["<leader>sx"] = { "<cmd>close<CR>", "Close current split"},
+        
     -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
     -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
    -- empty mode is same as using <cmd> :map
