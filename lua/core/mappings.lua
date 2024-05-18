@@ -55,6 +55,7 @@ end
 
 M.general = {
   i = {
+    ["jk"] = { "<ESC>", "Exit insert mode with jk"},
     -- go to  beginning and end
     ["<C-b>"] = { "<ESC>^i", "Beginning of line" },
     ["<C-e>"] = { "<End>", "End of line" },
@@ -104,7 +105,13 @@ M.general = {
     ["<leader>sh"] = { "<C-w>s", "Split window horizontally"},
     ["<leader>se"] = { "<C-w>=", "Make splits equal size"},
     ["<leader>sx"] = { "<cmd>close<CR>", "Close current split"},
-        
+
+    ["<leader>to"] = { "<cmd>tabnew<CR>", "Open new tab"},
+    ["<leader>tx"] = { "<cmd>tabclose<CR>", "Close current tab"},
+    ["<leader>tn"] = { "<cmd>tabn<CR>", "Go to next tab"},
+    ["<leader>tp"] = { "<cmd>tabp<CR>", "Go to previous tab"},
+    ["<leader>tf"] = { "<cmd>tabnew %<CR>", "Open current buffer in new tab"},
+
     -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
     -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
    -- empty mode is same as using <cmd> :map
