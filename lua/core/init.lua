@@ -26,8 +26,18 @@ opt.mouse = "a"
 
 -- Numbers
 opt.number = true
+opt.relativenumber = true
 opt.numberwidth = 2
-opt.ruler = false
+opt.ruler = true
+
+opt.expandtab = true
+opt.autoindent = true
+opt.smartcase = true
+
+-- search settings  
+opt.ignorecase = true
+opt.smartcase = true
+
 
 -- disable nvim intro
 opt.shortmess:append "sI"
@@ -39,6 +49,7 @@ opt.termguicolors = true
 opt.timeoutlen = 400
 opt.undofile = true
 
+opt.wrap =true 
 -- interval for writing swap file to disk, also used by gitsigns
 opt.updatetime = 250
 
@@ -48,14 +59,17 @@ opt.updatetime = 250
 
 --- Set cursor style
 opt.guicursor = "a:Block"
+
 vim.cmd([[
   augroup neovim_cursor_settings
     autocmd!
-    autocmd InsertEnter * set guicursor=a:blinkon0
+    " Set cursor to not blink in insert mode and set cursor line highlight
+    autocmd InsertEnter * set guicursor=a:blinkon0 | highlight CursorLine cterm=none ctermbg=darkgrey ctermfg=none guibg=grey15
+    " Set cursor to blink when leaving insert mode
     autocmd InsertLeave * set guicursor=a:blinkwait700-blinkon400-blinkoff250
   augroup END
 ]])
---- Select text then find with grep
+
 
 function Telescope_grep_selected_text()
     local selected_text = vim.fn.getreg(0, 1, 1)
