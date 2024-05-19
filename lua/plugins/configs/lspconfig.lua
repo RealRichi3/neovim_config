@@ -4,6 +4,8 @@ require "nvchad.lsp"
 local M = {}
 local utils = require "core.utils"
 
+
+
 -- export on_attach & capabilities for custom lspconfigs
 
 M.on_attach = function(client, bufnr)
@@ -65,6 +67,26 @@ lspconfig.lua_ls.setup {
   },
 }
 
-lspconfig.tsserver.setup({})
+lspconfig.tsserver.setup {
+    on_attach = M.on_attach,
+    capabilities = M.capabilities,
 
+    settings = {
+        typescript = {
+            preferences = {
+                importModuleSpecifierPreference = "non-relative",
+            },
+        },
+    },
+
+    root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+
+    flags = {
+        debounce_text_changes = 150,
+    },
+
+    filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+
+
+}
 return M
