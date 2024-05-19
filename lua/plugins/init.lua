@@ -1,8 +1,46 @@
--- all plugins have lazy=true by default,to load a plugin on startup just lazy=false
+-- all plugins have lazy=true by demault,to load a plugin on startup just lazy=false
 -- list of all default plugins & their definitions
 local default_plugins = {
-
+    { 'wakatime/vim-wakatime', lazy = false },
     "nvim-lua/plenary.nvim",
+    {
+        "stevearc/dressing.nvim",
+        event= "VeryLazy",
+    },
+    {
+        "folke/todo-comments.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        config = function ()
+            local  todo_comments = require("todo-comments")
+
+            local keymap = vim.keymap
+
+            keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Search for TODOs" })
+            keymap.set("n", "]t", function()
+                todo_comments.jump_next()
+            end, { desc = "Jump to next TODO" })
+            keymap.set("n", "[t", function()
+                todo_comments.jump_prev()
+            end, { desc = "Jump to previous TODO" })
+
+            todo_comments.setup()
+        end,
+    },
+    {
+    "rmagatti/auto-session",
+        config = function ()
+            local auto_session = require("auto-session")
+
+            auto_session.setup({
+                auto_restore_enabled = true,
+                auto_session_suppress_dirs = { "~/", "~/Downloads/"}
+            })
+            local keymap = vim.keymap
+            keymap.set("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd"})
+            keymap.set("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for cwd"})
+        end,
+        lazy = false
+    },
     {
       "nvchad/base46",
      branch = "v2.0",
@@ -65,6 +103,7 @@ local default_plugins = {
     },
     {
       "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPre", "BufNewFile"},
       init = function()
         require("core.utils").lazy_load "nvim-treesitter"
       end,
@@ -105,10 +144,13 @@ local default_plugins = {
           end,
         })
       end,
-      config = function()
+    event = {   "BufReadPre", "BufNewFile"},
+    config = function()
         local options = require ('plugins.configs.nvim_gitsigns')
         dofile(vim.g.base46_cache .. "git")
         require("gitsigns").setup(options.setup)
+        -- Setup on attach
+        require("gitsigns").on_attach = options.on_attach
         end,
       },
     -- lsp stuff
@@ -122,11 +164,12 @@ local default_plugins = {
         return require "plugins.configs.mason"
       end,
       config = function(_, opts)
+        local mason = require('mason')
         local mason_lspconfig = require('mason-lspconfig')
         mason_lspconfig.setup(opts)
 
         dofile(vim.g.base46_cache .. "mason")
-        require("mason").setup(opts)
+        mason.setup(opts)
         -- custom nvchad cmd to install all mason binaries listed
         vim.api.nvim_create_user_command("MasonInstallAll", function()
           vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
@@ -136,11 +179,74 @@ local default_plugins = {
     },
     {
       "neovim/nvim-lspconfig",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp",
+            { "antosha417/nvim-lsp-file-operations", config = true},
+            { "folke/neodev.nvim", opts = {}},
+        },
       init = function()
         require("core.utils").lazy_load "nvim-lspconfig"
       end,
       config = function()
         require "plugins.configs.lspconfig"
+
+        local lspconfig = require('lspconfig')
+        local mason_lspconfig = require('mason-lspconfig')
+        local cmp_nvim_lsp = require('cmp_nvim_lsp')
+        local keymap = vim.keymap
+
+        vim.api.nvim_create_autocmd("LspAttach", {
+                group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+                callback = function (ev)
+                    local opts = { buffer = ev.buf, silent = true }   
+                    opts.desc = "Show LSP references"
+
+                    keymap.set("n", "gr", function()
+                        vim.lsp.buf.references()
+                    end, opts)
+
+                    opts.desc = "Show LSP definition"
+                    keymap.set("n", "gd", function()
+                        vim.lsp.buf.definition()
+                    end, opts)
+
+                    opts.desc = "Show LSP type definition"
+                    keymap.set("n", "gD", function()
+                        vim.lsp.buf.type_definition()
+                    end, opts)
+
+                    opts.desc = "Show LSP implementation"
+                    keymap.set("n", "gi", function()
+                        vim.lsp.buf.implementation()
+                    end, opts)
+
+                    opts.desc = "Show LSP hover"
+                    keymap.set("n", "K", function()
+                        vim.lsp.buf.hover()
+                    end, opts)
+
+                    opts.desc = "Show buffer diagnostics"
+                    keymap.set("n", "<leader>bd", function()
+                        vim.lsp.diagnostic.show_line_diagnostics()
+                    end, opts)
+
+                    opts.desc = "Show line diagnostics"
+                    keymap.set("n", "<leader>d", function()
+                        vim.lsp.diagnostic.show_line_diagnostics()
+                    end, opts)
+
+                    opts.desc = "Go to previous diagnostic"
+                    keymap.set("n", "[d", function()
+                        vim.lsp.diagnostic.goto_prev()
+                    end, opts)
+
+                    opts.desc = "Go to next diagnostic"
+                    keymap.set("n", "]d", function()
+                        vim.lsp.diagnostic.goto_next()
+                    end, opts)
+                end
+            })
       end,
     },
     -- load luasnips + cmp related in insert mode only
