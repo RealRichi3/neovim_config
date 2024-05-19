@@ -81,8 +81,8 @@ M.general = {
     ["<leader>fdt"] = {"<ESC>:set foldenable!<CR>", "Toggle foldenable on or off"},
     ["<leader>tv"]= {"ToggleTerm direction=vertical<CR>", "Open terminal in vertical direction"},
     ["<leader>th"]= {"ToggleTerm direction=horizontal<CR>", "Open terminal in horizontal direction"}, 
-    ["<leader>g"] = {":Telescope current_buffer_fuzzy_find<CR>", "Find word in current buffer"},
-    ["<leader>G"] = {":Telescope live_grep<CR>", "Find word in current buffer"},
+    ["<leader>fg"] = {":Telescope current_buffer_fuzzy_find<CR>", "Find word in current buffer"},
+    ["<leader>fG"] = {":Telescope live_grep<CR>", "Find word in all buffers"},
     ["<Esc>"] = { "<cmd> noh <CR>", "Clear highlights" },
     
      -- switch between windows
@@ -155,7 +155,7 @@ M.general = {
     -- Don't copy the replaced text after pasting in visual mode
     -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
     ["p"] = { 'p:let @+=@0<CR>:let @"=@0<CR>', "Dont copy replaced text", opts = { silent = true } },
-    ["<leader>G"] = {
+    ["<leader>fG"] = {
         function()
             local tb = require('telescope.builtin')
             tb.live_grep({ default_text = vim.getVisualSelection() })
@@ -164,7 +164,7 @@ M.general = {
         opts = { noremap = true, silent = true }
 
         },
-    ["<leader>g"] = {
+    ["<leader>fg"] = {
         function()
             local tb = require('telescope.builtin')
             tb.current_buffer_fuzzy_find({ default_text = vim.getVisualSelection() })
@@ -364,7 +364,10 @@ M.nvimtree = {
     ["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" },
 
     -- focus
-    ["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "Focus nvimtree" },
+    ["<leader>ee"] = { "<cmd> NvimTreeToggle <CR>", "Toggle file explorer" },
+    ["<leader>ef"] = { "<cmd> NvimTreeFindFileToggle<CR>", "Toggle file explorer on current buffer" },
+    ["<leader>ec"] = { "<cmd> NvimTreeCollapse<CR>", "Collapse file explorer" },
+    ["<leader>er"] = { "<cmd> NvimTreeRefresh<CR>", "Refresh file explorer" },
   },
 }
 
@@ -504,68 +507,68 @@ M.blankline = {
   },
 }
 
-M.gitsigns = {
-  plugin = true,
-
-  n = {
-   -- Navigation through hunks
-    ["]c"] = {
-      function()
-        if vim.wo.diff then
-          return "]c"
-        end
-        vim.schedule(function()
-          require("gitsigns").next_hunk()
-        end)
-        return "<Ignore>"
-      end,
-      "Jump to next hunk",
-      opts = { expr = true },
-    },
-
-    ["[c"] = {
-      function()
-        if vim.wo.diff then
-          return "[c"
-        end
-        vim.schedule(function()
-          require("gitsigns").prev_hunk()
-        end)
-        return "<Ignore>"
-      end,
-      "Jump to prev hunk",
-      opts = { expr = true },
-    },
-
-    -- Actions
-    ["<leader>rh"] = {
-      function()
-        require("gitsigns").reset_hunk()
-      end,
-      "Reset hunk",
-    },
-
-    ["<leader>ph"] = {
-      function()
-        require("gitsigns").preview_hunk()
-      end,
-      "Preview hunk",
-    },
-
-    ["<leader>gb"] = {
-      function()
-        require('gitsigns').blame_line()
-      end,
-      "Blame line",
-    },
-
-    ["<leader>td"] = {
-      function()
-        require("gitsigns").toggle_deleted()
-      end,
-      "Toggle deleted",
-    },
-  },
-}
+-- M.gitsigns = {
+--   plugin = true,
+--
+--   n = {
+--    -- Navigation through hunks
+--     ["]c"] = {
+--       function()
+--         if vim.wo.diff then
+--           return "]c"
+--         end
+--         vim.schedule(function()
+--           require("gitsigns").next_hunk()
+--         end)
+--         return "<Ignore>"
+--       end,
+--       "Jump to next hunk",
+--       opts = { expr = true },
+--     },
+--
+--     ["[c"] = {
+--       function()
+--         if vim.wo.diff then
+--           return "[c"
+--         end
+--         vim.schedule(function()
+--           require("gitsigns").prev_hunk()
+--         end)
+--         return "<Ignore>"
+--       end,
+--       "Jump to prev hunk",
+--       opts = { expr = true },
+--     },
+--
+--     -- Actions
+--     ["<leader>rh"] = {
+--       function()
+--         require("gitsigns").reset_hunk()
+--       end,
+--       "Reset hunk",
+--     },
+--
+--     ["<leader>ph"] = {
+--       function()
+--         require("gitsigns").preview_hunk()
+--       end,
+--       "Preview hunk",
+--     },
+--
+--     ["<leader>gb"] = {
+--       function()
+--         require('gitsigns').blame_line()
+--       end,
+--       "Blame line",
+--     },
+--
+--     ["<leader>td"] = {
+--       function()
+--         require("gitsigns").toggle_deleted()
+--       end,
+--       "Toggle deleted",
+--     },
+--   },
+-- }
 
 return M
