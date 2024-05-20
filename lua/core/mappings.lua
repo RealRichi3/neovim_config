@@ -31,7 +31,7 @@ local M = {}
 	end
 end
 
-
+            
 -- local keymap = vim.keymap.set
 -- local opts = { noremap = true, silent = true }
 --
@@ -384,6 +384,9 @@ M.telescope = {
     ["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "Find oldfiles" },
     ["<leader>fz"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "Find in current buffer" },
 
+    -- Quick fix list  
+    ["<leader>fq"] = { "<cmd> Telescope quickfix <CR>", "Quickfix list" },
+
     -- git
     ["<leader>cm"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },
     ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "Git status" },
@@ -448,20 +451,20 @@ M.nvterm = {
       "Toggle vertical term",
     },
 
-    -- new
-    ["<leader>h"] = {
-      function()
-        require("nvterm.terminal").new "horizontal"
-      end,
-      "New horizontal term",
-    },
-
-    ["<leader>v"] = {
-      function()
-        require("nvterm.terminal").new "vertical"
-      end,
-      "New vertical term",
-    },
+    -- -- new
+    -- ["<leader>h"] = {
+    --   function()
+    --     require("nvterm.terminal").new "horizontal"
+    --   end,
+    --   "New horizontal term",
+    -- },
+    --
+    -- ["<leader>v"] = {
+    --   function()
+    --     require("nvterm.terminal").new "vertical"
+    --   end,
+    --   "New vertical term",
+    -- },
   },
 }
 

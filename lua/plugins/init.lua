@@ -4,6 +4,69 @@ local default_plugins = {
     { 'wakatime/vim-wakatime', lazy = false },
     "nvim-lua/plenary.nvim",
     {
+        "ThePrimeagen/harpoon",
+        enabled = true,
+        lazy = false,
+        branch = "harpoon2",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim"
+        },
+       keys = function(_, opts)
+            local harpoon = require("harpoon")
+            harpoon.setup(opts)
+            local conf = require('telescope.config').values
+
+            local function toogle_telescope(harpoon_files)
+                local file_paths = {}
+                for _, item in ipairs(harpoon_files.items) do
+                    table.insert(file_paths, item.value)
+                end
+                require("telescope.pickers").new({}, {
+                    prompt_title = "harpoon files",
+                    finder = require("telescope.finders").new_table {
+                        results = file_paths,
+                    },
+                    sorter = conf.generic_sorter(),
+                    previewer = conf.file_previewer({}),
+                    }):find()
+            end
+
+           return {
+                { "<a-1>", function() harpoon:list():select(1) end,  desc = "harpoon  buffer 1"  },
+                { "<a-2>", function() harpoon:list():select(2) end,  desc = "harpoon  buffer 2"  },
+                { "<a-3>", function() harpoon:list():select(3) end,  desc = "harpoon  buffer 3"  },
+                { "<a-4>", function() harpoon:list():select(4) end,  desc = "harpoon  buffer 4"  },
+                { "<a-5>", function() harpoon:list():select(5) end,  desc = "harpoon  buffer 5"  },
+                { "<a-6>", function() harpoon:list():select(6) end,  desc = "harpoon  buffer 6"  },
+                { "<a-7>", function() harpoon:list():select(7) end,  desc = "harpoon  buffer 7"  },
+                { "<a-8>", function() harpoon:list():select(8) end,  desc = "harpoon  buffer 8"  },
+                { "<a-9>", function() harpoon:list():select(9) end,  desc = "harpoon  buffer 9"  },
+                { "<a-0>", function() harpoon:list():select(10) end, desc = "harpoon  buffer 10"  },
+                { "<leader>hn",  function() harpoon:list():next() end,  desc = "harpoon next buffer"  },
+                { "<leader>hp",  function() harpoon:list():prev() end ,  desc = "harpoon prev buffer"  },
+                { "<leader>ha", function() harpoon:list():add() end, desc = "harpoon add file" },
+                { "<leader>hf", function()  harpoon.ui:toggle_quick_menu(harpoon:list())end, desc = "harpoon list" },
+                { "<leader>ht", function() toogle_telescope(harpoon:list()) end, desc = "harpoon telescope" },
+            }
+           end,
+        opts = function (_, opts)
+            if opts == nil then
+                opts = {}
+            else
+                opts.global_settings = {
+                    save_on_toggle = true,
+                    save_on_change = true,
+                    enter_on_sendcmd = false,
+                    tmux_autoclose_windows = false,
+                    excluded_filetypes = { "harpoon", "alpha", "dashboard", "NvimTree", "telescope" },
+                    mark_branch = false,
+                }
+            return opts
+            end
+        end,
+    },
+    {
         "stevearc/dressing.nvim",
         event= "VeryLazy",
     },
