@@ -4,6 +4,13 @@ local default_plugins = {
     { 'wakatime/vim-wakatime', lazy = false },
     "nvim-lua/plenary.nvim",
     {
+        "mattn/emmet-vim",
+        event = "InsertEnter",
+        config = function()
+            vim.g.user_emmet_leader_key = ","
+        end,
+    },
+    {
         "ThePrimeagen/harpoon",
         enabled = true,
         lazy = false,
@@ -327,6 +334,22 @@ local default_plugins = {
     },
     -- load luasnips + cmp related in insert mode only
     {
+        "L3MON4D3/LuaSnip",
+        event = "InsertEnter",
+          dependencies = "rafamadriz/friendly-snippets",
+          opts = { history = true, updateevents = "textchanged,textchangedi" },
+        config = function()
+            require("plugins.configs.others").luasnip()
+        end,
+    },
+    {
+        "windwp/nvim-ts-autotag",
+        event = "InsertEnter",
+        config = function()
+            require("nvim-ts-autotag").setup()
+        end,
+    },
+    {
       "hrsh7th/nvim-cmp",
      event = "InsertEnter",
       dependencies = {
@@ -356,6 +379,7 @@ local default_plugins = {
         -- cmp sources plugins
         {
           "saadparwaiz1/cmp_luasnip",
+        'rafamadriz/friendly-snippets',
           "hrsh7th/cmp-nvim-lua",
           "hrsh7th/cmp-nvim-lsp",
           "hrsh7th/cmp-buffer",

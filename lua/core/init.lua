@@ -57,19 +57,45 @@ opt.updatetime = 250
 --vim.o.foldmethod = 'indent' 
 
 
+-- opt.guicursor = "n-v-c-sm:block,ci-ve:ver25,r-cr-o:hor20,i:block-blinkwait700-blinkoff400-blinkon250-Cursor/lCursor"
 --- Set cursor style
-opt.guicursor = "a:Block"
+
+
+
+-- Set cursor to horizontal line in insert mode and vertical line in normal mode
+-- opt.guicursor = "n-v-c:block-Cursor/lCursor-blinkon0,i-ci-ve:ver25-Cursor/lCursor-blinkwait700-blinkon400-blinkoff250"
+-- if vim.fn.has("nvim") == 1 then
+--     vim.opt.guicursor = "n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor"
+-- end
+
+-- Set the color of comments
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        vim.opt.guicursor = "n-v-c:block,i-ci-ve:underline,r-cr:hor20,o:hor50"
+    end,
+})
 
 vim.cmd([[
   augroup neovim_cursor_settings
     autocmd!
     " Set cursor to not blink in insert mode and set cursor line highlight
-    autocmd InsertEnter * set guicursor=a:blinkon0 | highlight CursorLine cterm=none ctermbg=darkgrey ctermfg=none guibg=grey15
+    " Set color of the selected tex
+    " autocmd InsertEnter * set guicursor=a:blinkon0 | highlight CursorLine cterm=none ctermbg=darkgrey ctermfg=none guibg=grey15
+
+    "  Set cursor to horizontal line in insert mode and vertical line in normal mode
+    " autocmd InsertEnter * set guicursor=a:blinkon0  | set CursorLine 
+
+    " Set the color of highlighted/selected texts"
+    autocmd InsertEnter * highlight Visual cterm=none ctermbg=darkgrey ctermfg=none guibg=#3a3a3a
+    
     " Set cursor to blink when leaving insert mode
     autocmd InsertLeave * set guicursor=a:blinkwait700-blinkon400-blinkoff250
   augroup END
 ]])
 
+vim.cmd([[
+    autocmd BufRead,BufNewFile *.tsx set filetype=typescriptreact
+]])
 
 function Telescope_grep_selected_text()
     local selected_text = vim.fn.getreg(0, 1, 1)
