@@ -93,10 +93,6 @@ vim.cmd([[
   augroup END
 ]])
 
-vim.cmd([[
-    autocmd BufRead,BufNewFile *.tsx set filetype=typescriptreact
-]])
-
 function Telescope_grep_selected_text()
     local selected_text = vim.fn.getreg(0, 1, 1)
     require('telescope.builtin').grep_string({

@@ -3,13 +3,7 @@
 local default_plugins = {
     { 'wakatime/vim-wakatime', lazy = false },
     "nvim-lua/plenary.nvim",
-    {
-        "mattn/emmet-vim",
-        event = "InsertEnter",
-        config = function()
-            vim.g.user_emmet_leader_key = ","
-        end,
-    },
+
     {
         "ThePrimeagen/harpoon",
         enabled = true,
@@ -379,7 +373,7 @@ local default_plugins = {
         -- cmp sources plugins
         {
           "saadparwaiz1/cmp_luasnip",
-        'rafamadriz/friendly-snippets',
+         'rafamadriz/friendly-snippets',
           "hrsh7th/cmp-nvim-lua",
           "hrsh7th/cmp-nvim-lsp",
           "hrsh7th/cmp-buffer",

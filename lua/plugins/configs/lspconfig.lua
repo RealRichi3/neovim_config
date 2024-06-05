@@ -86,8 +86,6 @@ lspconfig.tsserver.setup {
     },
 
     filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", 'scss', 'css' },
-    cmd = { "typescript-language-server", "--stdio" },
-
 
 }
 return M

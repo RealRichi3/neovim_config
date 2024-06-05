@@ -23,7 +23,8 @@ M.blankline = {
 }
 
 M.luasnip = function(opts)
-  require("luasnip").config.set_config(opts)
+    local ls = require ('luasnip')
+  ls.config.set_config(opts)
 
   -- vscode format
   require("luasnip.loaders.from_vscode").lazy_load()
@@ -37,7 +38,6 @@ M.luasnip = function(opts)
   require("luasnip.loaders.from_lua").load()
   require("luasnip.loaders.from_lua").lazy_load { paths = vim.g.lua_snippets_path or "" }
 
-local ls = require 'luasnip'
 local s = ls.snippet
 local i = ls.insert_node
 local t = ls.text_node
