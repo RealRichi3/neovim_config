@@ -85,7 +85,9 @@ lspconfig.tsserver.setup {
         debounce_text_changes = 150,
     },
 
+    
     filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", 'scss', 'css' },
 
 }
 return M
+--

@@ -46,6 +46,7 @@ opt.signcolumn = "yes"
 opt.splitbelow = true
 opt.splitright = true
 opt.termguicolors = true
+
 opt.timeoutlen = 400
 opt.undofile = true
 

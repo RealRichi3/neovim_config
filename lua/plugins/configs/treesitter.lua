@@ -1,5 +1,5 @@
 local options = {
-  ensure_installed = { "lua", "javascript", "typescript", "python", "tsx" },
+  ensure_installed = { "lua", "javascript", "typescript", "python", "tsx", 'css' },
 
   highlight = {
     enable = true,

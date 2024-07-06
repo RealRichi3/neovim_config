@@ -93,6 +93,8 @@ M.general = {
 
     ["<C-s>"] = { "<cmd> w <CR>", "Save file" },
 
+    ['tm'] = { '<ESC><C-a>', 'Tmux mapping' },
+
     -- Copy all
     -- ["<C-c>"] = { "<cmd> %y+ <CR>", "Copy whole file" },
 
