@@ -3,6 +3,10 @@
 local default_plugins = {
     { 'wakatime/vim-wakatime', lazy = false },
     "nvim-lua/plenary.nvim",
+    {
+        "dapt4/vim-autoSurround",
+        lazy = false,
+    },
     { "sonjiku/yawnc.nvim" },
 {
         "ellisonleao/gruvbox.nvim",
