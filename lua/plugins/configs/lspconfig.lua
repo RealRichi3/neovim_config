@@ -67,9 +67,9 @@ local lspconfig = require('lspconfig')
 --   },
 -- }
 
-require('plugins.configs.jdtls')
+-- require('plugins.configs.jdtls')
 lspconfig.lua_ls.setup({})
-lspconfig.jdtls.setup({})
+-- lspconfig.jdtls.setup({})
 
 lspconfig.tsserver.setup {
     on_attach = M.on_attach,

@@ -200,30 +200,19 @@ local default_plugins = {
         config = function(_, opts)
             local mason = require('mason')
             local mason_lspconfig = require('mason-lspconfig')
-            -- local mason_tool_installer = require('mason-tool-installer')
+            local mason_tool_installer = require('mason-tool-installer')
 
-            -- mason_tool_installer.setup({
-            --     ensure_installed = {
-            --         'java-debug-adapter',
-            --         'java-tes',
-            --     },
-            -- })
-            --
+            mason_tool_installer.setup({
+                ensure_installed = {
+                    'java-debug-adapter',
+                    'java-test',
+                },
+            })
+
             mason_lspconfig.setup(opts)
 
             dofile(vim.g.base46_cache .. "mason")
             mason.setup(opts)
-            -- mason.setup_handlers({
-            --     function(server_name)
-            --         if server_name ~= 'jdtls' then
-            --             return
-            --         end
-            --         mason_lspconfig[server_name].setup({
-            --             on_attach = require('lsp').common_on_attach,
-            --             capabilities = require('lsp').common_capabilities(),
-            --         })
-            --     end
-            -- })
             -- custom nvchad cmd to install all mason binaries listed
             vim.api.nvim_create_user_command("MasonInstallAll", function()
                 vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
