@@ -234,66 +234,6 @@ local default_plugins = {
         end,
         config = function()
             require "plugins.configs.lspconfig"
-
-            -- local lspconfig = require('lspconfig')
-            -- local mason_lspconfig = require('mason-lspconfig')
-            -- local cmp_nvim_lsp = require('cmp_nvim_lsp')
-            local keymap = vim.keymap
-
-            -- vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { desc = "Show LSP hover" })
-            -- vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { desc = "Show LSP definition" })
-
-            vim.api.nvim_create_autocmd("LspAttach", {
-                group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-                callback = function(ev)
-                    local opts = { buffer = ev.buf, silent = true }
-                    opts.desc = "Show LSP references"
-
-                    keymap.set("n", "gr", function()
-                        vim.lsp.buf.references()
-                    end, opts)
-
-                    opts.desc = "Show LSP definition"
-                    keymap.set("n", "gd", function()
-                        vim.lsp.buf.definition()
-                    end, opts)
-
-                    opts.desc = "Show LSP type definition"
-                    keymap.set("n", "gD", function()
-                        vim.lsp.buf.type_definition()
-                    end, opts)
-
-                    opts.desc = "Show LSP implementation"
-                    keymap.set("n", "gi", function()
-                        vim.lsp.buf.implementation()
-                    end, opts)
-
-                    opts.desc = "Show LSP hover"
-                    keymap.set("n", "K", function()
-                        vim.lsp.buf.hover()
-                    end, opts)
-
-                    opts.desc = "Show buffer diagnostics"
-                    keymap.set("n", "<leader>bd", function()
-                        vim.lsp.diagnostic.show_line_diagnostics()
-                    end, opts)
-
-                    opts.desc = "Show line diagnostics"
-                    keymap.set("n", "<leader>d", function()
-                        vim.lsp.diagnostic.show_line_diagnostics()
-                    end, opts)
-
-                    opts.desc = "Go to previous diagnostic"
-                    keymap.set("n", "[d", function()
-                        vim.lsp.diagnostic.goto_prev()
-                    end, opts)
-
-                    opts.desc = "Go to next diagnostic"
-                    keymap.set("n", "]d", function()
-                        vim.lsp.diagnostic.goto_next()
-                    end, opts)
-                end
-            })
         end,
     },
 
