@@ -1,5 +1,3 @@
-
-
 return {
     "folke/zen-mode.nvim",
     config = function()
@@ -7,7 +5,7 @@ return {
             require("zen-mode").setup {
                 window = {
                     width = 90,
-                    options = { }
+                    options = {}
                 },
             }
             require("zen-mode").toggle()
@@ -22,7 +20,7 @@ return {
             require("zen-mode").setup {
                 window = {
                     width = 80,
-                    options = { }
+                    options = {}
                 },
             }
             require("zen-mode").toggle()
@@ -34,4 +32,3 @@ return {
         end)
     end
 }
-

@@ -2,7 +2,7 @@
 -- list of all default plugins & their definitions
 local default_plugins = {
     { 'wakatime/vim-wakatime', lazy = false },
-    "nvim-lua/plenary.nvim",
+    { "nvim-lua/plenary.nvim" },
     {
         "dapt4/vim-autoSurround",
         lazy = false,
@@ -187,6 +187,7 @@ local default_plugins = {
         event = 'InsertEnter',
         config = function() vim.cmd "source ~/.config/nvim/init.lua" end,
     },
+
     -- lsp stuff
     {
         "williamboman/mason.nvim",
@@ -295,6 +296,7 @@ local default_plugins = {
             })
         end,
     },
+
     -- load luasnips + cmp related in insert mode only
     {
         "L3MON4D3/LuaSnip",
@@ -424,6 +426,7 @@ local default_plugins = {
             require("plugins.configs.toggleterm")
         end,
     },
+
     -- only load whichkey after all the GUI
     {
         "folke/which-key.nvim",
