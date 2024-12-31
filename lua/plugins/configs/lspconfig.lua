@@ -93,5 +93,16 @@ lspconfig.tsserver.setup {
     filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", 'scss', 'css' },
 
 }
+
+lspconfig.clangd.setup({
+    cmd = {
+        "clangd",
+        "--background-index",
+        "--clang-tidy",
+        "--completion-style=detailed",
+        "--header-insertion=iwyu",
+    }
+})
+
 return M
 --
