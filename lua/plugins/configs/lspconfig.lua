@@ -81,6 +81,8 @@ local keymap = vim.keymap
 -- vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { desc = "Show LSP definition" })
 
 lspconfig.clangd.setup({
+    on_attach = M.on_attach,
+    capabilities = M.capabilities,
     cmd = {
         "clangd",
         "--background-index",

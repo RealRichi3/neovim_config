@@ -2,8 +2,8 @@ local options = {
     ensure_installed = {
         "lua_ls",
         "cssmodules_ls",
-        "java",
-        "tsserver",
+        -- "java",
+        -- "tsserver",
         "clangd",
         "jdtls"
     }, -- not an option from mason.nvim
@@ -32,4 +32,30 @@ local options = {
     max_concurrent_installers = 10,
 }
 
-return options
+local function setup(opts)
+    local mason = require('mason')
+    local mason_lspconfig = require('mason-lspconfig')
+    local mason_tool_installer = require('mason-tool-installer')
+
+    mason_tool_installer.setup({
+        ensure_installed = {
+            'java-debug-adapter',
+            'java-test',
+        },
+    })
+
+    mason_lspconfig.setup(opts)
+
+    dofile(vim.g.base46_cache .. "mason")
+    mason.setup(opts)
+    -- custom nvchad cmd to install all mason binaries listed
+    vim.api.nvim_create_user_command("MasonInstallAll", function()
+        vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
+    end, {})
+    vim.g.mason_binaries_list = opts.ensure_installed
+end
+
+return {
+    setup = setup,
+    options = options,
+}
