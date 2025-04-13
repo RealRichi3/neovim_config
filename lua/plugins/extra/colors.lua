@@ -8,19 +8,28 @@ end
 
 return {
     { "savq/melange-nvim" },
-
     {
         "erikbackman/brightburn.vim",
     },
-
     {
-        "folke/tokyonight.nvim",
+        'sainnhe/gruvbox-material',
         lazy = false,
-        opts = {},
+        priority = 1000,
         config = function()
-            ColorMyPencils()
+            -- Optionally configure and load the colorscheme
+            -- directly inside the plugin declaration.
+            vim.g.gruvbox_material_enable_italic = true
+            vim.cmd.colorscheme('gruvbox-material')
         end
     },
+    -- {
+    --     "folke/tokyonight.nvim",
+    --     lazy = false,
+    --     opts = {},
+    --     config = function()
+    --         ColorMyPencils()
+    --     end
+    -- },
     {
         "ellisonleao/gruvbox.nvim",
         name = "gruvbox",
