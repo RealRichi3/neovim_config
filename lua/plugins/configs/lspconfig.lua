@@ -43,6 +43,7 @@ M.capabilities.textDocument.completion.completionItem = {
 local lspconfig = require('lspconfig')
 
 lspconfig.lua_ls.setup({})
+lspconfig.lemminx.setup({})
 lspconfig.jdtls.setup({})
 lspconfig.tsserver.setup {
     on_attach = M.on_attach,
