@@ -13,12 +13,12 @@ return {
         priority = 1000,
         event = { 'InsertEnter', 'VeryLazy' },
         config = function()
-            vim.g.gruvbox_material_background = 'medium'
+            vim.g.gruvbox_material_background = 'hard'
             vim.g.gruvbox_material_better_performance = 1
-            vim.g.gruvbox_material_enable_italic = 1
+            vim.g.gruvbox_material_enable_italic = 0
             vim.g.gruvbox_material_enable_bold = 1
             vim.g.gruvbox_material_transparent_background = 0 -- Disable transparent background
-            vim.g.gruvbox_material_disable_italic_comment = 1
+            vim.g.gruvbox_material_disable_italic_comment = 0
             vim.g.gruvbox_material_enable_undercurl = 1
             vim.g.gruvbox_material_visual = 'grey background'
             vim.g.gruvbox_material_menu_selection_background = 'grey'
@@ -26,7 +26,7 @@ return {
             vim.g.gruvbox_material_statusline_style = 'default'
             vim.g.gruvbox_material_diagnostic_text_highlight = 1
             vim.g.gruvbox_material_diagnostic_line_highlight = 1
-            vim.g.gruvbox_material_diagnostic_virtual_text = 'colored'
+            -- vim.g.gruvbox_material_diagnostic_virtual_text = 'colored'
             vim.g.gruvbox_material_dim_inactive_windows = 0 -- Disable dimming inactive windows
             vim.g.gruvbox_material_ui_contrast = 'high'     -- Use high contrast UI
             vim.cmd.colorscheme('gruvbox-material')
