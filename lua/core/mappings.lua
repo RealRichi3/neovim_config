@@ -54,7 +54,7 @@ end
 
 M.general = {
     i = {
-        ["jk"] = { "<ESC>", "Exit insert mode with jk" },
+        ["JK"] = { "<ESC>", "Exit insert mode with JK" },
         -- go to  beginning and end
         ["<C-b>"] = { "<ESC>^i", "Beginning of line" },
         ["<C-e>"] = { "<End>", "End of line" },
@@ -136,13 +136,13 @@ M.general = {
     },
 
     t = {
-        ["jk"] = { "<ESC>", "Exit terminal mode with jk" },
+        ["JK"] = { "<ESC>", "Exit terminal mode with JK" },
         -- ["<S-Space>"] = { "<Nop>", "Leader key in insert mode" },
         -- ["<C-x>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), "Escape terminal mode" },
     },
 
     v = {
-        ["jk"] = { "<ESC>", "Exit visual mode with jk" },
+        ["JK"] = { "<ESC>", "Exit visual mode with JK" },
         -- ["k"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "Move up", opts = { expr = true } },
         -- ["j"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "Move down", opts = { expr = true } },
         ["C-{"] = { "<gv", "Indent line" },
