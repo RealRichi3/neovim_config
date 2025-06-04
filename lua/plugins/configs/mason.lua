@@ -2,10 +2,13 @@ local options = {
     ensure_installed = {
         "lua_ls",
         "cssmodules_ls",
-        "java",
-        "tsserver",
+        -- "java",
+        "ts_ls",
         "clangd",
-        "jdtls"
+        "jdtls",
+        "omnisharp",
+        -- "csharpier",
+        "csharp_ls",
     }, -- not an option from mason.nvim
 
     PATH = "skip",
