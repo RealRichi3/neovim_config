@@ -10,10 +10,11 @@ local options = {
         'c',
         'cpp',
         'make',
+        'c_sharp'
     },
 
     highlight = {
-        -- enable = true,
+        enable = true,
         use_languagetree = true,
     },
 

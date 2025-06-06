@@ -1,5 +1,4 @@
 local config = {
-
     {
         "nvchad/base46",
         branch = "v2.0",

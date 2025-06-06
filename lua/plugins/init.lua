@@ -191,6 +191,17 @@ local default_plugins = {
 
     -- lsp stuff
     {
+        "Omnisharp/omnisharp-vim",
+        dependencies = {
+            "dense-analysis/ale",
+            "neoclide/coc.nvim",
+            "prabirshrestha/asyncomplete.vim",
+            "tpope/vim-dispatch",
+            "Shougo/vimproc.vim",
+            "Hoffs/omnisharp-extended-lsp.nvim",
+        },
+    },
+    {
         "williamboman/mason.nvim",
         dependencies = {
             "williamboman/mason-lspconfig.nvim",
@@ -211,10 +222,10 @@ local default_plugins = {
                 },
             })
 
+            mason.setup(opts)
             mason_lspconfig.setup(opts)
 
             dofile(vim.g.base46_cache .. "mason")
-            mason.setup(opts)
             -- custom nvchad cmd to install all mason binaries listed
             vim.api.nvim_create_user_command("MasonInstallAll", function()
                 vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))

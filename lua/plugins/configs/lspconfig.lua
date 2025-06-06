@@ -46,29 +46,34 @@ lspconfig.lua_ls.setup({})
 lspconfig.lemminx.setup({})
 lspconfig.jdtls.setup({})
 lspconfig.omnisharp.setup({
-    on_attach    = M.on_attach,
-    capabilities = M.capabilities,
-})
-lspconfig.csharp_ls.setup({
+    handlers = {
+        ["textDocument/definition"] = require("omnisharp_extended").hander,
+    },
+    cmd = { "OmniSharp", "--languageserver" },
     on_attach = M.on_attach,
     capabilities = M.capabilities,
-
-    settings = {
-        csharp = {
-            enable_editorconfig_support = true,
-            enable_roslyn_analyzers = true,
-            enable_import_completion = true,
-            organize_imports_on_format = true,
-            enable_ms_build_load_projects_on_demand = true,
-        },
-    },
-
-    root_dir = lspconfig.util.root_pattern("*.csproj", "*.sln", ".git"),
-
-    flags = {
-        debounce_text_changes = 150,
-    },
 })
+
+-- lspconfig.csharp_ls.setup({
+--     on_attach = M.on_attach,
+--     capabilities = M.capabilities,
+--
+--     settings = {
+--         csharp = {
+--             enable_editorconfig_support = true,
+--             enable_roslyn_analyzers = true,
+--             enable_import_completion = true,
+--             organize_imports_on_format = true,
+--             enable_ms_build_load_projects_on_demand = true,
+--         },
+--     },
+--
+--     root_dir = lspconfig.util.root_pattern("*.csproj", "*.sln", ".git"),
+--
+--     flags = {
+--         debounce_text_changes = 150,
+--     },
+-- })
 lspconfig.tsserver.setup {
     on_attach = M.on_attach,
     capabilities = M.capabilities,
