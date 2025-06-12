@@ -41,10 +41,18 @@ M.capabilities.textDocument.completion.completionItem = {
 }
 
 local lspconfig = require('lspconfig')
+local util = require('lspconfig/util')
 
 lspconfig.lua_ls.setup({})
 lspconfig.lemminx.setup({})
 lspconfig.jdtls.setup({})
+lspconfig.gopls.setup({
+    on_attach = M.on_attach,
+    capabilities = M.capabilities,
+    cmd = { 'gopls' },
+    filetypes = { "go", "gomod", "gowork", "gotmpl" },
+    root_dir = util.root_pattern("go.work", "go.mod", ".git")
+})
 lspconfig.omnisharp.setup({
     handlers = {
         ["textDocument/definition"] = require("omnisharp_extended").hander,
@@ -54,26 +62,6 @@ lspconfig.omnisharp.setup({
     capabilities = M.capabilities,
 })
 
--- lspconfig.csharp_ls.setup({
---     on_attach = M.on_attach,
---     capabilities = M.capabilities,
---
---     settings = {
---         csharp = {
---             enable_editorconfig_support = true,
---             enable_roslyn_analyzers = true,
---             enable_import_completion = true,
---             organize_imports_on_format = true,
---             enable_ms_build_load_projects_on_demand = true,
---         },
---     },
---
---     root_dir = lspconfig.util.root_pattern("*.csproj", "*.sln", ".git"),
---
---     flags = {
---         debounce_text_changes = 150,
---     },
--- })
 lspconfig.tsserver.setup {
     on_attach = M.on_attach,
     capabilities = M.capabilities,
