@@ -61,7 +61,6 @@ lspconfig.omnisharp.setup({
     on_attach = M.on_attach,
     capabilities = M.capabilities,
 })
-
 lspconfig.tsserver.setup {
     on_attach = M.on_attach,
     capabilities = M.capabilities,
@@ -80,7 +79,6 @@ lspconfig.tsserver.setup {
         debounce_text_changes = 150,
     },
 
-
     filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", 'scss', 'css' },
 
 }
@@ -93,10 +91,6 @@ lspconfig.pyright.setup({
 -- local lspconfig = require('lspconfig')
 -- local mason_lspconfig = require('mason-lspconfig')
 -- local cmp_nvim_lsp = require('cmp_nvim_lsp')
-local keymap = vim.keymap
-
--- vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { desc = "Show LSP hover" })
--- vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { desc = "Show LSP definition" })
 
 lspconfig.clangd.setup({
     cmd = {
@@ -107,5 +101,25 @@ lspconfig.clangd.setup({
         "--header-insertion=iwyu",
     }
 })
+
+-- Add autocmd for Go file formatting
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.go",
+    callback = function()
+        local params = vim.lsp.util.make_range_params()
+        params.context = {only = {"source.organizeImports"}}
+        local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
+        for cid, res in pairs(result or {}) do
+            for _, r in pairs(res.result or {}) do
+                if r.edit then
+                    local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+                    vim.lsp.util.apply_workspace_edit(r.edit, enc)
+                end
+            end
+        end
+        vim.lsp.buf.format({async = false})
+    end
+})
+
 
 return M

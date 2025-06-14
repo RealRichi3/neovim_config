@@ -191,6 +191,13 @@ local default_plugins = {
 
     -- lsp stuff
     {
+        "jose-elias-alvarez/null-ls.nvim",
+        ft = "go",
+        opts = function()
+            return require "plugins.configs.null-ls"
+        end,
+    },
+    {
         "Omnisharp/omnisharp-vim",
         dependencies = {
             "dense-analysis/ale",
