@@ -57,7 +57,7 @@ local options = {
         },
     },
 
-    extensions_list = { "themes", "terms", "fzf" },
+    extensions_list = { "themes", "terms", "fzf", "git_worktree" },
     extensions = {
         fzf = {
             fuzzy = true,

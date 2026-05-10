@@ -20,6 +20,16 @@ return {
     },
     -- git stuff
     {
+        "ThePrimeagen/git-worktree.nvim",
+        config = function()
+            require("git-worktree").setup()
+        end,
+        keys = {
+            { "<leader>gw", "<cmd>Telescope git_worktree git_worktrees<cr>", desc = "Git Worktrees" },
+            { "<leader>gc", "<cmd>Telescope git_worktree create_git_worktree<cr>", desc = "Create Git Worktree" },
+        }
+    },
+    {
         "lewis6991/gitsigns.nvim",
         lazy = false,
         --   cmd = { "Gitsigns", "Gitsigns toggle_signs", "Gitsigns toggle_numhl", "Gitsigns toggle_linehl", "Gitsigns toggle_word_diff" },

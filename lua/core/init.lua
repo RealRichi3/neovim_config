@@ -109,7 +109,7 @@ vim.cmd([[
     " autocmd InsertEnter * set guicursor=a:blinkon0  | set CursorLine
 
     " Set the color of highlighted/selected texts"
-    autocmd InsertEnter * highlight Visual cterm=none ctermbg=darkgrey ctermfg=none guibg=#3a3a3a
+    " autocmd InsertEnter * highlight Visual cterm=none ctermbg=darkgrey ctermfg=none guibg=#3a3a3a
 
     " Set cursor to blink when leaving insert mode
     autocmd InsertLeave * set guicursor=a:blinkwait700-blinkon400-blinkoff250
