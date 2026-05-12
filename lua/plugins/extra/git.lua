@@ -20,7 +20,8 @@ return {
     },
     -- git stuff
     {
-        "ThePrimeagen/git-worktree.nvim",
+        "RealRichi3/git-worktree.nvim",
+        branch = "dev",
         config = function()
             require("git-worktree").setup()
         end,
