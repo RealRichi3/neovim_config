@@ -191,7 +191,7 @@ local default_plugins = {
 
     -- lsp stuff
     {
-        "jose-elias-alvarez/null-ls.nvim",
+        "nvimtools/none-ls.nvim",
         ft = "go",
         opts = function()
             return require "plugins.configs.null-ls"
