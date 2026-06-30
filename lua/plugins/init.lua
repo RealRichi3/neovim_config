@@ -1,7 +1,7 @@
 -- all plugins have lazy=true by demault,to load a plugin on startup just lazy=false
 -- list of all default plugins & their definitions
 local default_plugins = {
-    { 'wakatime/vim-wakatime', lazy = false },
+    -- { 'wakatime/vim-wakatime', lazy = false },
     { "nvim-lua/plenary.nvim" },
     { "folke/snacks.nvim",     opts = { dashboard = { enabled = false } } },
     {
@@ -168,18 +168,20 @@ local default_plugins = {
     },
     {
         "nvim-treesitter/nvim-treesitter",
+        branch = "main",
+        -- Pinned: newer main requires tree-sitter-cli >= 0.26.1, whose prebuilt
+        -- binary needs glibc 2.39 (we're on Ubuntu 22.04 / glibc 2.35). This commit
+        -- requires only cli >= 0.25.0. Unpin after an OS upgrade or a from-source cli.
+        commit = "f8bbc3177d929dc86e272c41cc15219f0a7aa1ac",
         event = { "BufReadPre", "BufNewFile" },
         init = function()
             require("core.utils").lazy_load "nvim-treesitter"
         end,
-        cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+        cmd = { "TSInstall", "TSUpdate", "TSUpdateSync", "TSInstallInfo" },
         build = ":TSUpdate",
-        opts = function()
-            return require "plugins.configs.treesitter"
-        end,
-        config = function(_, opts)
+        config = function()
             dofile(vim.g.base46_cache .. "syntax")
-            require("nvim-treesitter.configs").setup(opts)
+            require "plugins.configs.treesitter"
         end,
     },
     {

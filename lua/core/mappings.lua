@@ -54,7 +54,6 @@ end
 
 M.general = {
     i = {
-        ["<Esc>"] = { "<Nop>", "Disable Esc" },
         ["jk"] = { "<ESC>", "Exit insert mode with jk" },
         -- go to  beginning and end
         ["<C-b>"] = { "<ESC>^i", "Beginning of line" },
@@ -83,7 +82,6 @@ M.general = {
         ["<leader>th"] = { "ToggleTerm direction=horizontal<CR>", "Open terminal in horizontal direction" },
         ["<leader>fg"] = { ":Telescope current_buffer_fuzzy_find<CR>", "Find word in current buffer" },
         ["<leader>fG"] = { ":Telescope live_grep<CR>", "Find word in all buffers" },
-        ["<Esc>"] = { "<Nop>", "Disable Esc" },
 
         -- switch between windows
         ["<A-h>"] = { ":wincmd h<CR>", "Move Left" },

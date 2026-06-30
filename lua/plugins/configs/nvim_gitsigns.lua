@@ -39,9 +39,7 @@ M.setup = {
         row = 0,
         col = 1
     },
-    yadm                         = {
-        enable = false
-    },
+
     --   on_attach = function (bufrn)
     --     local gs = require('gitsigns')
     --     local function map(mode, l, r, desc)

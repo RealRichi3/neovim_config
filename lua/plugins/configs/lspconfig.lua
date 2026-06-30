@@ -40,28 +40,28 @@ M.capabilities.textDocument.completion.completionItem = {
     },
 }
 
-local lspconfig = require('lspconfig')
-local util = require('lspconfig/util')
+vim.lsp.config('lua_ls', {})
+vim.lsp.config('lemminx', {})
+vim.lsp.config('jdtls', {})
 
-lspconfig.lua_ls.setup({})
-lspconfig.lemminx.setup({})
-lspconfig.jdtls.setup({})
-lspconfig.gopls.setup({
+vim.lsp.config('gopls', {
     on_attach = M.on_attach,
     capabilities = M.capabilities,
     cmd = { 'gopls' },
     filetypes = { "go", "gomod", "gowork", "gotmpl" },
-    root_dir = util.root_pattern("go.work", "go.mod", ".git")
+    root_markers = { "go.work", "go.mod", ".git" },
 })
-lspconfig.omnisharp.setup({
+
+vim.lsp.config('omnisharp', {
     handlers = {
-        ["textDocument/definition"] = require("omnisharp_extended").hander,
+        ["textDocument/definition"] = require("omnisharp_extended").handler,
     },
     cmd = { "OmniSharp", "--languageserver" },
     on_attach = M.on_attach,
     capabilities = M.capabilities,
 })
-lspconfig.tsserver.setup {
+
+vim.lsp.config('ts_ls', {
     on_attach = M.on_attach,
     capabilities = M.capabilities,
 
@@ -73,33 +73,39 @@ lspconfig.tsserver.setup {
         },
     },
 
-    root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+    root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
 
     flags = {
         debounce_text_changes = 150,
     },
 
     filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", 'scss', 'css' },
-
-}
-
-lspconfig.pyright.setup({
-    on_attach = M.on_attach,
-    capabilities = M.capabilities
 })
 
--- local lspconfig = require('lspconfig')
--- local mason_lspconfig = require('mason-lspconfig')
--- local cmp_nvim_lsp = require('cmp_nvim_lsp')
+vim.lsp.config('pyright', {
+    on_attach = M.on_attach,
+    capabilities = M.capabilities,
+})
 
-lspconfig.clangd.setup({
+vim.lsp.config('clangd', {
     cmd = {
         "clangd",
         "--background-index",
         "--clang-tidy",
         "--completion-style=detailed",
         "--header-insertion=iwyu",
-    }
+    },
+})
+
+vim.lsp.enable({
+    'lua_ls',
+    'lemminx',
+    'jdtls',
+    'gopls',
+    'omnisharp',
+    'ts_ls',
+    'pyright',
+    'clangd',
 })
 
 -- Add autocmd for Go file formatting
