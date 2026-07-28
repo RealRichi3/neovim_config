@@ -1,4 +1,7 @@
 return {
+    -- avante.nvim disabled. To re-enable, delete the --[==[ below and the
+    -- matching ]==] just above the final closing brace.
+    --[==[
     {
         "yetone/avante.nvim",
         event = "VeryLazy",
@@ -194,4 +197,5 @@ return {
             -- },
         },
     }
+    ]==]
 }
